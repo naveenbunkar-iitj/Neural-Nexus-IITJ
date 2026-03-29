@@ -28,4 +28,4 @@ streamlit run frontend/app.py
 Python, FastAPI, Streamlit, Scikit-learn
 
 ## Team
-Neural Nexus IITJ
+Tech Orbit
