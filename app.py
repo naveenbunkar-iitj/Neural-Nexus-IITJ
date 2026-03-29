@@ -1,15 +1,22 @@
-
 import streamlit as st
-import pickle
 import numpy as np
+from sklearn.tree import DecisionTreeClassifier
 
-# Load model
-model = pickle.load(open('model_file.pkl', 'rb'))
+# Create dummy training data
+X = [
+    [50000, 700, 10000],
+    [30000, 500, 40000],
+    [80000, 750, 5000],
+    [20000, 400, 30000]
+]
 
-st.set_page_config(page_title="AI Decision Engine")
+y = ["APPROVED", "REJECTED", "APPROVED", "REJECTED"]
+
+# Train model inside app
+model = DecisionTreeClassifier()
+model.fit(X, y)
 
 st.title("🧠 AI Decision Engine")
-st.write("Automation of Complex Decision Making")
 
 income = st.slider("Income", 0, 100000, 50000)
 credit = st.slider("Credit Score", 300, 900, 650)
