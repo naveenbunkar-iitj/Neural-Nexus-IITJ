@@ -42,7 +42,7 @@ pip install -r requirements.txt
 ### 1) Run backend
 
 ```bash
-uvicorn backend.main:app --reload
+uvicorn main:app --reload
 ```
 
 API docs: <http://localhost:8000/docs>
@@ -50,8 +50,10 @@ API docs: <http://localhost:8000/docs>
 ### 2) Run frontend
 
 ```bash
-streamlit run frontend/app.py
+streamlit run app.py
 ```
+
+The root `app.py` runs standalone and loads `models/decision_tree.pkl` directly (it will auto-create the file on first run).
 
 ## API Example
 
@@ -91,3 +93,8 @@ curl -X POST http://localhost:8000/decision \
   - **Explainability**
   - **Hybrid AI**
   - **Multi-domain adaptability** (finance, healthcare triage, admissions)
+
+### Deployment Notes
+
+- Root-level `app.py` and `main.py` are included for platforms that expect those names.
+- The decision tree model is auto-saved/loaded from `models/decision_tree.pkl` so inference can reuse a persisted `.pkl` artifact.

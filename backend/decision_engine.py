@@ -1,6 +1,8 @@
 from __future__ import annotations
 
+import pickle
 from dataclasses import dataclass
+from pathlib import Path
 from typing import Dict, List
 
 import numpy as np
@@ -19,11 +21,27 @@ class DecisionResult:
 class SmartDecisionEngine:
     """Hybrid AI decision engine for loan/investment risk decisions."""
 
-    def __init__(self) -> None:
-        self.tree_model = DecisionTreeClassifier(max_depth=4, random_state=42)
-        self._train_tree_model()
+    def __init__(self, model_path: Path | None = None) -> None:
+        self.model_path = model_path or Path(__file__).resolve().parents[1] / "models" / "decision_tree.pkl"
+        self.tree_model = self._load_or_train_tree_model()
 
-    def _train_tree_model(self) -> None:
+    def _load_or_train_tree_model(self) -> DecisionTreeClassifier:
+        """Load a persisted model if available, otherwise train and save one."""
+        if self.model_path.exists():
+            with self.model_path.open("rb") as model_file:
+                return pickle.load(model_file)
+
+        model = DecisionTreeClassifier(max_depth=4, random_state=42)
+        self._train_tree_model(model)
+
+        self.model_path.parent.mkdir(parents=True, exist_ok=True)
+        with self.model_path.open("wb") as model_file:
+            pickle.dump(model, model_file)
+
+        return model
+
+    @staticmethod
+    def _train_tree_model(model: DecisionTreeClassifier) -> None:
         """Train on synthetic data suitable for hackathon demos."""
         rng = np.random.default_rng(42)
         rows = 800
@@ -44,7 +62,7 @@ class SmartDecisionEngine:
         y = (risk < 0.45).astype(int)
 
         x = np.column_stack([income, credit_score, liabilities, expense_ratio, behavior])
-        self.tree_model.fit(x, y)
+        model.fit(x, y)
 
     @staticmethod
     def _normalized_risk(payload: Dict[str, float]) -> float:
