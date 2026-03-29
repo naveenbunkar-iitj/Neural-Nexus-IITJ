@@ -1,0 +1,32 @@
+[
+  {
+    "scenario": "Low risk applicant",
+    "payload": {
+      "income": 120000,
+      "credit_score": 780,
+      "liabilities": 18000,
+      "expense_ratio": 0.35,
+      "behavior_score": 0.82
+    }
+  },
+  {
+    "scenario": "Moderate risk applicant",
+    "payload": {
+      "income": 70000,
+      "credit_score": 660,
+      "liabilities": 28000,
+      "expense_ratio": 0.56,
+      "behavior_score": 0.55
+    }
+  },
+  {
+    "scenario": "High risk applicant",
+    "payload": {
+      "income": 42000,
+      "credit_score": 540,
+      "liabilities": 39000,
+      "expense_ratio": 0.83,
+      "behavior_score": 0.28
+    }
+  }
+]
