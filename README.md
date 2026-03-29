@@ -91,3 +91,20 @@ curl -X POST http://localhost:8000/decision \
   - **Explainability**
   - **Hybrid AI**
   - **Multi-domain adaptability** (finance, healthcare triage, admissions)
+
+
+## Streamlit Cloud Deployment (No Backend Needed)
+
+This repo now includes a root-level `app.py` so you can deploy directly on Streamlit Cloud without running FastAPI separately.
+
+1. Push your repository to GitHub.
+2. Open <https://streamlit.io/cloud> and sign in.
+3. Create a new app and select this repo.
+4. Set the entry point to `app.py`.
+5. Deploy.
+
+The deployed app will show:
+- Input form
+- Decision output (`APPROVE` / `HOLD` / `REJECT`)
+- Risk score
+- Explanation bullets
